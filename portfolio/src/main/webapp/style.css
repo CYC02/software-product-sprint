@@ -7,3 +7,22 @@
 #greeting-container {
   margin-top: 20px;
 }
+body{
+    background-color: rgb(44,44,48);
+}
+h1{
+    color: rgb(117,45,64);
+    font-family: 'Courier New', monospace;
+}
+h2{
+    color: rgb(130,54,84);
+    font-family: 'Courier New', monospace;
+}
+h3{
+    color: rgb(140,72,111);
+    font-family: 'Courier New', monospace;
+}
+p{
+    color: white;
+    font-family: 'Courier New', monospace;
+}
