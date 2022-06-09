@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/form-handler")
 public class FormHandlerServlet extends HttpServlet {
-
+  //POST request handler
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {//POST request handler
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     // Get the value entered in the form.
     String textValue = request.getParameter("text-input");
