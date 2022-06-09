@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/form-handler")
 public class FormHandlerServlet extends HttpServlet {
-
+  //POST request handler
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
