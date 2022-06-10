@@ -32,6 +32,12 @@ async function fetchServerMessage() {
     const textResponse = await serverResponse.text();
 
     const msgContainer = document.getElementById('msg-container');
-    msgContainer.innerText = textResponse;
+    const commentArrString = textResponse.substring(textResponse.indexOf('[')+1,textResponse.indexOf(']'));
+    console.log(commentArrString);
+    const comments = commentArrString.split(", ");
+
+    const randomComment = comments[Math.floor(Math.random() * comments.length)];
+    msgContainer.innerText = randomComment;
     
+    console.log(textResponse);
 }
