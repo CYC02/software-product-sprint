@@ -1,7 +1,10 @@
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,32 +14,23 @@ import javax.servlet.http.HttpServletResponse;
 /** Handles requests sent to the /hello URL. Try running a server and navigating to /hello! */
 @WebServlet("/hello")
 public class HelloWorldServlet extends HttpServlet {
+  List<String> comments = List.of("Learning a lot of new concepts!", "Everybody is very supportive!","Relearning Java right now");
+  Map<String,List<String>> commentsMap = new HashMap<String,List<String>>();
+  
   //GET request handler
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    ArrayList<String> comments = new ArrayList<String>();
-    comments.add("I'm learning a lot of new concepts!");
-    comments.add("Everybody is very supportive!");
-    comments.add("Relearning Java right now");
-
-    String json = convertToJSON(comments);
+    commentsMap.put("comments",comments);
+    String json = convertToJsonUsingGson(commentsMap);
 
     response.setContentType("application/json;");
     response.getWriter().println(json);
 
 
   }
-    private String convertToJSON(ArrayList<String> commentsArr){
-        String json = "{";
-        json += "\"comments\": ";
-        json += "[";
-        for(int i = 0; i < commentsArr.size()-1; i++){
-            String str = commentsArr.get(i);
-            json += "\"" + str + "\"" + ", ";
-        }
-        json += "\"" + commentsArr.get(commentsArr.size()-1) + "\"";
-        json += "]";
-        json += "}";
-        return json;
-    }
+  private String convertToJsonUsingGson(Map<String,List<String>> map) {
+    Gson gson = new Gson();
+    String json = gson.toJson(map);
+    return json;
+  }
 }
