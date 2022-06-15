@@ -14,23 +14,19 @@ import javax.servlet.http.HttpServletResponse;
 /** Handles requests sent to the /hello URL. Try running a server and navigating to /hello! */
 @WebServlet("/hello")
 public class HelloWorldServlet extends HttpServlet {
-  List<String> comments = List.of("Learning a lot of new concepts!", "Everybody is very supportive!","Relearning Java right now");
-  Map<String,List<String>> commentsMap = new HashMap<String,List<String>>();
-  
+    private static final Map < String, List < String >> commentsMap = Map.of(
+        "comments", List.of(
+            "Learning a lot of new concepts!",
+            "Everybody is very supportive!",
+            "Relearning Java right now"
+        )
+    );
+    private static final String JSONComments = new Gson().toJson(commentsMap);
   //GET request handler
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    commentsMap.put("comments",comments);
-    String json = convertToJsonUsingGson(commentsMap);
-
     response.setContentType("application/json;");
-    response.getWriter().println(json);
+    response.getWriter().println(JSONComments);
 
-
-  }
-  private String convertToJsonUsingGson(Map<String,List<String>> map) {
-    Gson gson = new Gson();
-    String json = gson.toJson(map);
-    return json;
   }
 }
