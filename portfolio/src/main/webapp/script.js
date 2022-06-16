@@ -32,6 +32,20 @@ async function fetchServerMessage() {
     const textResponse = await serverResponse.text();
 
     const msgContainer = document.getElementById('msg-container');
-    msgContainer.innerText = textResponse;
+
+    const json = JSON.parse(textResponse);
+    const commentsArr = json.comments;
     
+    randomComment = "";
+    if(commentsArr.length!=0){
+        randomComment = commentsArr[Math.floor(Math.random() * commentsArr.length)];
+    } 
+    else{
+        randomComment = "There are no comments to display.";
+    }
+    
+    msgContainer.innerText = randomComment;
+    console.log(serverResponse);
+    console.log(textResponse);
+    console.log(json);
 }
