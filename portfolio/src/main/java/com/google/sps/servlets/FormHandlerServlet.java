@@ -22,9 +22,6 @@ public class FormHandlerServlet extends HttpServlet {
     long timestamp = System.currentTimeMillis();
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
     KeyFactory keyFactory = datastore.newKeyFactory().setKind("Comment");
-
-    // Get the value entered in the form.
-    //String textValue = request.getParameter("text-input");
     
     FullEntity commentEntity =
         Entity.newBuilder(keyFactory.newKey())
@@ -34,10 +31,5 @@ public class FormHandlerServlet extends HttpServlet {
     datastore.put(commentEntity);
     response.sendRedirect("/index.html");
 
-    // Print the value so you can see it in the server logs.
-    //System.out.println("You submitted: " + textValue);
-
-    // Write the value to the response so the user can see it.
-    //response.getWriter().println("You submitted: " + textValue);
   }
 }
