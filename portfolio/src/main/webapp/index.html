@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload = "loadComments()">
     <div id="content">
       <h1>Cindy's Portfolio</h1>
       <img src="/images/profilePic.png" />
@@ -66,12 +66,14 @@
       <p>I made this for an optional Game Design summer class in high school. 
           This small game was inspired from Pokemon gameplay. 
           It is suppose to be a silly and funny game where Sara tries to win Billy's heart.</p>
+        
         <form action="/form-handler" method="POST">
             <p>Leave a comment:</p>
             <textarea name="text-input"></textarea>
             <br/>
             <input type="submit" />
         </form>
+        <ul id="comment-list"></ul>
 
     </div>
   </body>

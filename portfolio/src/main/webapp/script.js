@@ -49,3 +49,27 @@ async function fetchServerMessage() {
     console.log(textResponse);
     console.log(json);
 }
+
+function loadComments() {
+    console.log("load comment");
+    fetch('/load-comments').then(response => response.json()).then((comments) => {
+      const commentListElement = document.getElementById('comment-list');
+      comments.forEach((comment) => {
+        commentListElement.appendChild(createCommentElement(comment));
+      })
+    });
+function createCommentElement(comment) {
+    console.log("create comment",comment);
+    const commentElement = document.createElement('li');
+    commentElement.className = 'comment';
+    
+    const textElement = document.createElement('span');
+    textElement.innerText = comment.innerText;
+    
+    
+    
+    commentElement.appendChild(textElement);
+    commentElement.appendChild(deleteButtonElement);
+    return commentElement;
+    }
+  }
