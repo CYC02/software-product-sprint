@@ -51,25 +51,37 @@ async function fetchServerMessage() {
 }
 
 function loadComments() {
-    console.log("load comment");
     fetch('/load-comments').then(response => response.json()).then((comments) => {
       const commentListElement = document.getElementById('comment-list');
       comments.forEach((comment) => {
         commentListElement.appendChild(createCommentElement(comment));
       })
     });
+}
+
 function createCommentElement(comment) {
     console.log("create comment",comment);
     const commentElement = document.createElement('li');
     commentElement.className = 'comment';
     
     const textElement = document.createElement('span');
-    textElement.innerText = comment.innerText;
+    textElement.innerText = comment.text;
     
-    
+    const deleteButtonElement = document.createElement('button');
+    deleteButtonElement.innerText = 'Delete';
+    deleteButtonElement.addEventListener('click', () => {
+        deleteComment(comment);
+
+        commentElement.remove();
+    });
     
     commentElement.appendChild(textElement);
     commentElement.appendChild(deleteButtonElement);
     return commentElement;
-    }
-  }
+}
+
+function deleteComment(comment) {
+    const params = new URLSearchParams();
+    params.append('id', comment.id);
+    fetch('/delete-comment', {method: 'POST', body: params});
+}
