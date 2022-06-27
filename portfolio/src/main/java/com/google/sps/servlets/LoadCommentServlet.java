@@ -17,7 +17,8 @@ import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.StructuredQuery.OrderBy;
 import com.google.gson.Gson;
 
-
+import data.Comment;
+/*
 /** Servlet responsible for listing tasks. */
 @WebServlet("/load-comments")
 public class LoadCommentServlet extends HttpServlet {
@@ -29,22 +30,26 @@ public class LoadCommentServlet extends HttpServlet {
     Query<Entity> query =
         Query.newEntityQueryBuilder().setKind("Comment").setOrderBy(OrderBy.desc("timestamp")).build();
     QueryResults<Entity> results = datastore.run(query);
-    List<String> comments = new ArrayList<>();
+    
+    List<Comment> comments = new ArrayList<>();
     while (results.hasNext()) {
       Entity entity = results.next();
-      comments.add(entity.getString("text"));
-      System.out.println(entity.getString("text"));
+
+      long id = entity.getKey().getId();
+      String text = entity.getString("text");
+      long timestamp = entity.getLong("timestamp");
+
+      Comment comment = new Comment(id, text, timestamp);
+
+      comments.add(comment);
     }
     
-
     Gson gson = new Gson();
 
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(comments));
+    
 
-    System.out.println("load comment servlet");
-    System.out.println(comments);
   }
-  
   
 }
